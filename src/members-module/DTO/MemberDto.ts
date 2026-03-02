@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
   IsString,
   IsEmail,
@@ -7,6 +8,7 @@ import {
   IsEnum,
   IsUUID,
   IsArray,
+  IsNotEmpty,
 } from 'class-validator';
 import { ChurchMember } from '../../types/ChurchMember';
 
@@ -34,15 +36,23 @@ export class MemberDTO implements Partial<ChurchMember> {
   id?: string;
 
   @IsString()
+  @IsNotEmpty()
   firstName: string;
 
   @IsString()
+  @IsNotEmpty()
   lastName: string;
 
+  // @IsString()
+  // @IsOptional()
+  // otherName: string;
+
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 
   @IsString()
+  @IsOptional()
   phoneNumber: string;
 
   @IsDateString()
