@@ -7,8 +7,8 @@ export class EventEntity {
   id: crypto.UUID;
   @Column()
   title: string;
-  @Column()
-  description: Text;
+  @Column('text')
+  description: string;
   @Column()
   startTime: string; //DateTime
   @Column()

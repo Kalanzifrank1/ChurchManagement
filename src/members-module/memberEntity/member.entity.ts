@@ -6,10 +6,13 @@ import {
   JoinTable,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { GroupsEntity } from '../../groups-module/groupsEntity/groups.entity';
 import { FamilyEntity } from './family.entity';
 
+//
+@Index(['firstName', 'lastName', 'familyId'], { unique: true })
 @Entity()
 export class MemberEntity {
   @PrimaryGeneratedColumn('uuid')
