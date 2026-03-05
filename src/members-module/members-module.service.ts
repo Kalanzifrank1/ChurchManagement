@@ -98,4 +98,53 @@ export class MembersModuleService {
       throw error;
     }
   }
+
+  /**
+   * Retrieves a paginated list of members. Supports basic text search
+   * across name/email fields and includes related group ids.
+   *
+   * @param page 1-based page number
+   * @param limit number of items per page
+   * @param search optional search term applied to firstName, lastName or email
+   */
+  async getAllMembers(
+    page = 1,
+    limit = 10,
+    search?: string,
+  ): Promise<{
+    members: MemberDTO[];
+    total: number;
+    page: number;
+    limit: number;
+  }> {
+    try {
+      const qb = this.memberRepository
+        .createQueryBuilder('member')
+        .leftJoinAndSelect('member.groups', 'group');
+
+      if (search) {
+        // basic case-insensitive search using LIKE; adjust operator for your DB
+        const like = `%${search}%`;
+        qb.where(
+          'member.firstName LIKE :like OR member.lastName LIKE :like OR member.email LIKE :like',
+          { like },
+        );
+      }
+
+      const [entities, total] = await qb
+        .skip((page - 1) * limit)
+        .take(limit)
+        .getManyAndCount();
+
+      const members = entities.map((e) => ({
+        ...e,
+        groups: e.groups?.map((g) => g.id) || [],
+      })) as MemberDTO[];
+
+      return { members, total, page, limit };
+    } catch (error) {
+      console.error('Error fetching members list:', error.message);
+      throw error;
+    }
+  }
 }

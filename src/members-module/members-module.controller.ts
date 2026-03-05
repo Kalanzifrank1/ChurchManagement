@@ -15,6 +15,23 @@ export class MembersModuleController {
     return await this.membersService.findMember1(firstName, lastName, familyId);
   }
 
+  /**
+   * GET /members/all
+   * returns paginated results or full list when no page/limit provided
+   * optional search term is applied against name/email columns.
+   */
+  @Get('all')
+  async getAllMembers(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('search') search?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+
+    return this.membersService.getAllMembers(pageNum, limitNum, search);
+  }
+
   @Post()
   async createMember(@Body() memberDTO: MemberDTO): Promise<MemberDTO | null> {
     return await this.membersService.createMember(memberDTO);
