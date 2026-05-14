@@ -10,7 +10,7 @@ export class MembersModuleService {
   constructor(
     @InjectRepository(MemberEntity)
     private memberRepository: Repository<MemberEntity>,
-  ) {}
+  ) { }
 
   async createMember(memberDTO: MemberDTO): Promise<MemberDTO | null> {
     try {
