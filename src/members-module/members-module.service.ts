@@ -29,7 +29,7 @@ export class MembersModuleService {
       return {
         ...createUser,
         gender: createUser.gender,
-        groups: createUser.groups.map((group) => group.id),
+        groups: createUser.groups?.map((group) => group.id),
       } as MemberDTO;
     } catch (error) {
       console.error('Error creating member:', error.message);

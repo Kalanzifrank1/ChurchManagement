@@ -21,7 +21,7 @@ import { MembersModuleModule } from './members-module/members-module.module';
       database: process.env.DB_NAME || 'church_system',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: process.env.NODE_ENV !== 'production', // Auto-create database schema in development
-      logging: process.env.NODE_ENV === 'development',
+      //logging: process.env.NODE_ENV === 'development',
     }),
     UsersModule,
     AuthModule,

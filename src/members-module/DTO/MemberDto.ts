@@ -37,11 +37,11 @@ export class MemberDTO implements Partial<ChurchMember> {
 
   @IsString()
   @IsNotEmpty()
-  firstName: string;
+  firstName?: string;
 
   @IsString()
   @IsNotEmpty()
-  lastName: string;
+  lastName?: string;
 
   // @IsString()
   // @IsOptional()
@@ -49,20 +49,20 @@ export class MemberDTO implements Partial<ChurchMember> {
 
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email?: string;
 
   @IsString()
   @IsOptional()
-  phoneNumber: string;
+  phoneNumber?: string;
 
   @IsDateString()
-  membershipDate: Date | string;
+  membershipDate?: Date | string;
 
   @IsEnum(Gender)
-  gender: Gender;
+  gender?: Gender;
 
   @IsEnum(RoleInChurch)
-  roleInChurch: RoleInChurch;
+  roleInChurch?: RoleInChurch;
 
   @IsBoolean()
   @IsOptional()

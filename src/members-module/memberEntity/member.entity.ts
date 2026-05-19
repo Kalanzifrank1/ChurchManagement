@@ -16,33 +16,33 @@ import { FamilyEntity } from './family.entity';
 @Entity()
 export class MemberEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id?: string;
 
   @Column()
-  firstName: string;
+  firstName?: string;
 
   @Column({ default: true })
-  isActive: boolean;
+  isActive?: boolean;
 
   // firstName: String
   @Column()
-  lastName: string;
+  lastName?: string;
 
   @Column({ unique: true })
-  email: string;
+  email?: string;
 
   @Column()
-  phoneNumber: string;
+  phoneNumber?: string;
 
   @Column({ type: 'date' })
-  membershipDate: Date;
+  membershipDate?: Date;
 
   @Column({
     type: 'enum',
     enum: ['male', 'female', 'other'],
     default: 'male',
   })
-  gender: string;
+  gender?: string;
 
   // many members may belong to a single family
   @ManyToOne(() => FamilyEntity, (family) => family.members, { nullable: true })
@@ -57,7 +57,7 @@ export class MemberEntity {
     enum: ['MEMBER', 'ELDER', 'DEACON', 'PASTOR'],
     default: 'MEMBER',
   })
-  roleInChurch: string;
+  roleInChurch?: string;
 
   // many-to-many relationship with groups
   @ManyToMany(() => GroupsEntity, (group) => group.members, { cascade: true })
@@ -66,5 +66,10 @@ export class MemberEntity {
     joinColumn: { name: 'member_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'group_id', referencedColumnName: 'id' },
   })
-  groups: GroupsEntity[];
+  groups?: GroupsEntity[];
+
+  @Column({ type: 'date' })
+  createdAt?: Date;
+  @Column({ type: 'date' })
+  updatedAt?: Date;
 }
